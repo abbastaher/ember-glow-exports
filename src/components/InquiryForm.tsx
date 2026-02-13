@@ -2,16 +2,33 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Send } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const InquiryForm = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     name: "", company: "", country: "", email: "", product: "", quantity: "", message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    const { error } = await supabase.from("inquiries").insert({
+      name: form.name,
+      company: form.company || null,
+      country: form.country,
+      email: form.email,
+      product: form.product,
+      quantity: form.quantity || null,
+      message: form.message || null,
+    });
+    setLoading(false);
+    if (error) {
+      toast.error("Something went wrong. Please try again.");
+      return;
+    }
     toast.success("Thank you! Your inquiry has been received. We'll get back to you shortly.");
     setForm({ name: "", company: "", country: "", email: "", product: "", quantity: "", message: "" });
   };
@@ -64,10 +81,11 @@ const InquiryForm = () => {
           />
           <button
             type="submit"
-            className="w-full py-4 bg-primary text-primary-foreground font-heading text-lg uppercase tracking-widest rounded hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 animate-pulse-glow"
+            disabled={loading}
+            className="w-full py-4 bg-primary text-primary-foreground font-heading text-lg uppercase tracking-widest rounded hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 animate-pulse-glow disabled:opacity-50"
           >
             <Send className="w-5 h-5" />
-            Request Bulk Quote
+            {loading ? "Submitting..." : "Request Bulk Quote"}
           </button>
         </motion.form>
       </div>

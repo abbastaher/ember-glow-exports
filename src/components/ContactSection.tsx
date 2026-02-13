@@ -46,21 +46,22 @@ const ContactSection = () => {
               <Phone className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
               <div>
                 <h3 className="font-heading text-sm uppercase tracking-wider text-foreground mb-1">Phone</h3>
-                <p className="text-muted-foreground text-sm">+91 XXXXX XXXXX</p>
+                <div className="space-y-1">
+                  <p className="text-muted-foreground text-sm">Abbas: <a href="tel:+917014571132" className="text-primary hover:underline">+91 7014571132</a></p>
+                  <p className="text-muted-foreground text-sm">Mustak Khan: <a href="tel:+918949711718" className="text-primary hover:underline">+91 8949711718</a></p>
+                  <p className="text-muted-foreground text-sm">Arshad Kamal: <a href="tel:+919784047840" className="text-primary hover:underline">+91 9784047840</a></p>
+                </div>
               </div>
             </div>
             <div className="flex items-start gap-4 p-6 bg-card border border-border rounded-lg">
               <MessageCircle className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
               <div>
                 <h3 className="font-heading text-sm uppercase tracking-wider text-foreground mb-1">WhatsApp</h3>
-                <a
-                  href="https://wa.me/91XXXXXXXXXX"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary text-sm hover:underline"
-                >
-                  Chat on WhatsApp
-                </a>
+                <div className="space-y-1">
+                  <a href="https://wa.me/917014571132" target="_blank" rel="noopener noreferrer" className="text-primary text-sm hover:underline block">Abbas</a>
+                  <a href="https://wa.me/918949711718" target="_blank" rel="noopener noreferrer" className="text-primary text-sm hover:underline block">Mustak Khan</a>
+                  <a href="https://wa.me/919784047840" target="_blank" rel="noopener noreferrer" className="text-primary text-sm hover:underline block">Arshad Kamal</a>
+                </div>
               </div>
             </div>
           </div>
